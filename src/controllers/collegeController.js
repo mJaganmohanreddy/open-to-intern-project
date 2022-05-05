@@ -29,7 +29,7 @@ const createCollege = async function(req,res) {
     }
 
     catch(error) 
-    {
+    { console.log(err)
       res.status(500).send({ status: false, msg: error.message });
     }
 };

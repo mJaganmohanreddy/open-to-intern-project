@@ -8,6 +8,11 @@ const isValidField = function (value)
 
     return true;
 };
+
+const isValidMobileNo = function (mobile)
+{
+    return (/^\d{10}$/.test(mobile));
+};
   
 const isValidRequestBody = function (requestBody) 
 {
@@ -25,4 +30,4 @@ const isValidEmail = function(email)
 {
     return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email));
 };
-module.exports={isValidField,isValidRequestBody,isValidObjectId,isValidEmail};
+module.exports={isValidField,isValidRequestBody,isValidObjectId,isValidEmail,isValidMobileNo};
