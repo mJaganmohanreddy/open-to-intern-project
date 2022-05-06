@@ -53,17 +53,19 @@ const getdata = async function (req,res){
   try {
   let data = req.query.collegeName
 
-  if(!Validators.isValidField(data)){
+  if(!data){
       return res.status(400).send({status:false, msg:"data not found"})
   }
 
 
 
-  let collegedetails = await collegeModel.findOne({name:data,isDeleted :false})
-  if (!collegedetails) return res.status(404).send({ status:false, msg: 'collage name not found'});
-  let interndetails = await internModel.find({ collageid: collegedetails._id,isDeleted: false }).select({_id:1, name: 1, email:1, mobile:1});
+  let collegedetails = await collegeModel.findOne({name:data,isDeleted :false},{name: 1, _id: 1, fullname: 1, logolink: 1})
+  if (!collegedetails) 
+  return res.status(404).send({ status:false, msg: 'collage name not found'});
+  let interndetails = await internModel.find({ collegeId: collegedetails._id,isDeleted: false }).select({_id:1, name: 1, email:1, mobile:1});
   let alldetails = {name: collegedetails.name,fullname: collegedetails.fullname, logoLink: collegedetails.logolink, interns: interndetails};
-  if ( interndetails.length ===0) return res.status(404).send({status:false, alldetails,msg:"no intern applied"})
+  if ( interndetails.length ===0) 
+  return res.status(404).send({status:false, alldetails,msg:"no intern applied"})
 
   return res.status(200).send({status:true, data:alldetails})
   
@@ -71,7 +73,7 @@ const getdata = async function (req,res){
 
 
   catch(err){
-      return res.status(500).send({error:err.messege})
+      return res.status(500).send({status:false,error:err.messege})
   }
 }
 
