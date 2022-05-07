@@ -27,6 +27,6 @@ app.use(
 
 app.use('/',route);
 
-app.listen(process.env.PORT || 4000, (err)=> {
-    console.log("Connected to PORT 4000")
+app.listen(process.env.PORT || 3000, (err)=> {
+    console.log("Connected to PORT 3000")
 });
