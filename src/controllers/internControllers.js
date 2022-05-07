@@ -22,6 +22,10 @@ const Validators = require('../validators/validators');
   if (!Validators.isValidEmail(requestBody.email))
   return res.status(400).send({status: false, msg: "email is required"})
      
+  let emailExists = await internModel.findOne({email : requestBody.email});
+ if (emailExists)
+ return res.status(400).send({ status: false, message: "Email has already been registered" });
+
 
   if (!Validators.isValidField(requestBody.collegeName))
   return res.status(400).send({status: false, msg: "collegeName is required"})
